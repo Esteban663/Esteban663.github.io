@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Esteban Arroyave — Portafolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0d0d0d;
+    --white: #f5f2ec;
+    --accent: #3bff91;
+    --accent2: #ff5c3b;
+    --gray: #1a1a1a;
+    --gray2: #2a2a2a;
+    --muted: #6b6b6b;
+    --border: rgba(255,255,255,0.08);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 4rem;
+    background: rgba(13,13,13,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    letter-spacing: -0.02em;
+    color: var(--white);
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--accent); }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--white); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 0 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -20%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(59,255,145,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-content {
+    max-width: 780px;
+    z-index: 1;
+  }
+
+  .hero-tag {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid rgba(59,255,145,0.3);
+    padding: 0.35rem 0.9rem;
+    border-radius: 100px;
+    margin-bottom: 2rem;
+  }
+
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(3.2rem, 8vw, 6rem);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    margin-bottom: 1.8rem;
+  }
+
+  .hero h1 em {
+    font-style: normal;
+    color: var(--muted);
+  }
+
+  .hero-desc {
+    font-size: 1.1rem;
+    font-weight: 300;
+    color: rgba(245,242,236,0.65);
+    max-width: 500px;
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: var(--black);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    font-size: 0.9rem;
+    padding: 0.85rem 2rem;
+    border-radius: 100px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: opacity 0.2s, transform 0.2s;
+    display: inline-block;
+  }
+
+  .btn-primary:hover { opacity: 0.85; transform: translateY(-1px); }
+
+  .btn-ghost {
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    font-size: 0.9rem;
+    padding: 0.85rem 2rem;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: border-color 0.2s, transform 0.2s;
+    display: inline-block;
+  }
+
+  .btn-ghost:hover { border-color: rgba(255,255,255,0.3); transform: translateY(-1px); }
+
+  .hero-number {
+    position: absolute;
+    right: 4rem;
+    bottom: 4rem;
+    font-family: 'Syne', sans-serif;
+    font-size: 12rem;
+    font-weight: 800;
+    color: rgba(255,255,255,0.03);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  /* STACK PILLS */
+  .stack-row {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+  }
+
+  .pill {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    padding: 0.3rem 0.8rem;
+    border-radius: 100px;
+    background: var(--gray2);
+    color: rgba(245,242,236,0.7);
+    border: 1px solid var(--border);
+  }
+
+  /* SECTION */
+  section {
+    padding: 7rem 4rem;
+  }
+
+  .section-label {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .section-label::before {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 1px;
+    background: var(--muted);
+  }
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 3.5rem;
+    line-height: 1.05;
+  }
+
+  /* PROJECTS */
+  #proyectos { border-top: 1px solid var(--border); }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5px;
+    background: var(--border);
+    border: 1.5px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .project-card {
+    background: var(--black);
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    transition: background 0.25s;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .project-card:hover { background: var(--gray); }
+
+  .project-card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+
+  .project-type {
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.7rem;
+    border-radius: 100px;
+    border: 1px solid;
+  }
+
+  .type-web { color: #3bff91; border-color: rgba(59,255,145,0.35); }
+  .type-mobile { color: #5b9fff; border-color: rgba(91,159,255,0.35); }
+  .type-game { color: #ff5c3b; border-color: rgba(255,92,59,0.35); }
+
+  .project-arrow {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted);
+    font-size: 14px;
+    transition: border-color 0.2s, color 0.2s;
+    flex-shrink: 0;
+  }
+
+  .project-card:hover .project-arrow {
+    border-color: rgba(255,255,255,0.35);
+    color: var(--white);
+  }
+
+  .project-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  .project-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  .project-desc {
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: rgba(245,242,236,0.55);
+    line-height: 1.7;
+    flex: 1;
+  }
+
+  .project-tech {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+  }
+
+  .tech-tag {
+    font-size: 0.7rem;
+    font-weight: 500;
+    padding: 0.2rem 0.6rem;
+    border-radius: 100px;
+    background: var(--gray2);
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+
+  /* ABOUT */
+  #sobre-mi { border-top: 1px solid var(--border); }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: start;
+  }
+
+  .about-text p {
+    font-size: 1rem;
+    font-weight: 300;
+    color: rgba(245,242,236,0.7);
+    line-height: 1.9;
+    margin-bottom: 1.2rem;
+  }
+
+  .about-text p strong {
+    color: var(--white);
+    font-weight: 500;
+  }
+
+  .stats-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: var(--border);
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .stat-row {
+    background: var(--black);
+    padding: 1.2rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .stat-label {
+    font-size: 0.85rem;
+    font-weight: 300;
+    color: var(--muted);
+  }
+
+  .stat-value {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--white);
+  }
+
+  .stat-accent { color: var(--accent); }
+
+  /* CONTACT */
+  #contacto { border-top: 1px solid var(--border); text-align: center; }
+
+  .contact-inner {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .contact-inner .section-label {
+    justify-content: center;
+  }
+
+  .contact-inner .section-label::before { display: none; }
+
+  .contact-email {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1rem, 3.5vw, 2.2rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--white);
+    text-decoration: none;
+    display: block;
+    margin-bottom: 2.5rem;
+    transition: color 0.2s;
+    word-break: break-all;
+    text-align: center;
+  }
+
+  .contact-email:hover { color: var(--accent); }
+
+  .social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 2rem 4rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  footer p {
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+
+  /* ANIMATIONS */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero, section { padding: 5rem 1.5rem; }
+    .hero { padding-top: 8rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    .hero-number { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#"><span>E.</span>Arroyave</a>
+  <ul class="nav-links">
+    <li><a href="#proyectos">Proyectos</a></li>
+    <li><a href="#sobre-mi">Sobre mí</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="hero-content">
+    <span class="hero-tag">Disponible para trabajar</span>
+    <h1>Esteban<br><em>Arroyave</em></h1>
+    <p class="hero-desc">
+      Ingeniero en Informática — Universidad de Caldas.<br>
+      Desarrollo aplicaciones móviles, sitios web y experiencias interactivas.
+    </p>
+    <div class="stack-row">
+      <span class="pill">Android Studio</span>
+      <span class="pill">Angular</span>
+      <span class="pill">Spring Boot</span>
+      <span class="pill">Java</span>
+      <span class="pill">Firebase</span>
+      <span class="pill">MySQL</span>
+      <span class="pill">Godot</span>
+      <span class="pill">React</span>
+    </div>
+    <div class="hero-cta" style="margin-top: 2.5rem;">
+      <a href="#proyectos" class="btn-primary">Ver proyectos</a>
+      <a href="https://github.com/Esteban663" target="_blank" class="btn-ghost">GitHub ↗</a>
+    </div>
+  </div>
+  <div class="hero-number">3</div>
+</section>
+
+<!-- PROYECTOS -->
+<section id="proyectos">
+  <div class="section-label">Trabajo</div>
+  <h2 class="section-title">Proyectos<br>destacados</h2>
+
+  <div class="projects-grid">
+
+    <!-- EcoApp -->
+    <a href="https://github.com/Esteban663/EcoApp" target="_blank" class="project-card fade-in">
+      <div class="project-card-top">
+        <span class="project-type type-mobile">App Móvil</span>
+        <div class="project-arrow">↗</div>
+      </div>
+      <div class="project-num">001</div>
+      <h3 class="project-title">EcoApp</h3>
+      <p class="project-desc">
+        Aplicación Android para localizar puntos de reciclaje en Anserma, Caldas. 
+        Integra GPS y mapas interactivos, CRUD de puntos, y una API propia en Firebase 
+        que provee consejos de reciclaje en tiempo real.
+      </p>
+      <div class="project-tech">
+        <span class="tech-tag">Android Studio</span>
+        <span class="tech-tag">Java</span>
+        <span class="tech-tag">Firebase</span>
+        <span class="tech-tag">Google Maps API</span>
+      </div>
+    </a>
+
+    <!-- Mi Cacharrito -->
+    <a href="https://github.com/Esteban663/miCacharrito" target="_blank" class="project-card fade-in" style="transition-delay: 0.1s;">
+      <div class="project-card-top">
+        <span class="project-type type-web">App Web</span>
+        <div class="project-arrow">↗</div>
+      </div>
+      <div class="project-num">002</div>
+      <h3 class="project-title">Mi Cacharrito</h3>
+      <p class="project-desc">
+        Sistema de alquiler de vehículos full-stack. Gestión de usuarios y administradores, 
+        catálogo por tipo de vehículo, generación de contratos en PDF y control 
+        de estados de entrega en tiempo real.
+      </p>
+      <div class="project-tech">
+        <span class="tech-tag">Angular</span>
+        <span class="tech-tag">Spring Boot</span>
+        <span class="tech-tag">MySQL</span>
+        <span class="tech-tag">Java</span>
+      </div>
+    </a>
+
+    <!-- Piedra Papel Tijera -->
+    <a href="https://piedra-papel-tijera-saw.netlify.app/" target="_blank" class="project-card fade-in" style="transition-delay: 0.2s;">
+      <div class="project-card-top">
+        <span class="project-type type-game">Videojuego</span>
+        <div class="project-arrow">↗</div>
+      </div>
+      <div class="project-num">003</div>
+      <h3 class="project-title">Piedra Papel<br>o Tijera — SAW</h3>
+      <p class="project-desc">
+        Videojuego de Piedra, Papel o Tijera con temática del universo de SAW. 
+        Mecánicas de rondas, efectos de sonido y countdown. 
+        Desplegado en Netlify como PWA jugable desde el navegador.
+      </p>
+      <div class="project-tech">
+        <span class="tech-tag">Godot 4</span>
+        <span class="tech-tag">GDScript</span>
+        <span class="tech-tag">Netlify</span>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- SOBRE MÍ -->
+<section id="sobre-mi">
+  <div class="section-label">Perfil</div>
+  <h2 class="section-title">Sobre mí</h2>
+
+  <div class="about-grid">
+    <div class="about-text fade-in">
+      <p>
+        Soy <strong>Ingeniero en Informática</strong> recién graduado de la Universidad de Caldas 
+        con un GPA de <strong>4.0/5.0</strong>, y Técnico en Sistemas del SENA (2022). 
+        Basado en <strong>Anserma, Caldas, Colombia</strong>.
+      </p>
+      <p>
+        Me apasiona construir software que resuelva problemas reales — desde apps móviles 
+        que conectan comunidades con el reciclaje, hasta sistemas web de gestión empresarial 
+        y videojuegos que entretienen.
+      </p>
+      <p>
+        Tengo experiencia práctica en el ciclo completo de desarrollo: diseño, implementación, 
+        integración de APIs y despliegue en producción.
+      </p>
+    </div>
+
+    <div class="stats-list fade-in" style="transition-delay: 0.15s;">
+      <div class="stat-row">
+        <span class="stat-label">Título</span>
+        <span class="stat-value">Ing. en Informática</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Universidad</span>
+        <span class="stat-value">U. de Caldas</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">GPA</span>
+        <span class="stat-value stat-accent">4.0 / 5.0</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Técnico SENA</span>
+        <span class="stat-value">Sistemas — 2022</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Proyectos</span>
+        <span class="stat-value stat-accent">3 en portafolio</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">GitHub</span>
+        <span class="stat-value">
+          <a href="https://github.com/Esteban663" target="_blank" 
+             style="color: var(--accent); text-decoration: none;">
+            Esteban663 ↗
+          </a>
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto">
+  <div class="contact-inner">
+    <div class="section-label">¿Trabajamos juntos?</div>
+    <h2 class="section-title fade-in">Hablemos</h2>
+    <a href="mailto:estebanarroyave663@gmail.com" class="contact-email fade-in">
+      estebanarroyave663@gmail.com
+    </a>
+    <div class="social-links fade-in" style="transition-delay: 0.1s;">
+      <a href="https://github.com/Esteban663" target="_blank" class="btn-ghost">GitHub</a>
+      <a href="https://www.linkedin.com/in/tu-perfil" target="_blank" class="btn-ghost">LinkedIn</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 Esteban Arroyave</p>
+  <p>Anserma, Caldas — Colombia</p>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
